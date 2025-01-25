@@ -1,0 +1,126 @@
+[8:41 PM, 1/25/2025] ✨Amma✨: <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .password-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="password"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="passwordContainer">
+        <h1>Password Protected</h1>
+        <div class="password-container">
+            <input type="password" id="password" placeholder="Enter password">
+            <button class="button" onclick="checkPassword()">Submit</button>
+        </div>
+    </div>
+    <div class="container" id="dataContainer" style="display: none;">
+        <h1>Attendance Data</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody id="dataBody"></tbody>
+        </table>
+        <button class="button" onclick="goBack()">Go Back</button>
+    </div>
+    <script>
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            if (password === '12') {
+                document.getElementById('passwordContainer').style.display = 'none';
+                document.getElementById('dataContainer').style.display = 'block';
+
+                let data = localStorage.getItem('attData');
+                data = data ? JSON.parse(data) : [];
+                const dataBody = document.getElementById('dataBody');
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.name}</td>
+                        <td>${item.age}</td>
+                        <td>${item.email}</td>
+                    `;
+                    dataBody.appendChild(row);
+                });
+            } else {
+                alert('Incorrect password. Please try again.');
+            }
+        }
+
+        function goBack() {
+            window.location.href = 'attend.html';
+        }
+    </script>
+</body>
+</html>
+

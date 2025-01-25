@@ -1,0 +1,107 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formatted Output Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Input Form</h1>
+        <form id="userForm" onsubmit="saveData(event)">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="output" class="output"></div>
+    </div>
+    <script>
+        function saveData(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const email = document.getElementById('email').value;
+
+            const output = `
+                <h2>Formatted Output</h2>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Age:</strong> ${age}</p>
+                <p><strong>Email:</strong> ${email}</p>
+            `;
+
+            document.getElementById('output').innerHTML = output;
+
+            // Save data to local storage
+            let data = localStorage.getItem('attData');
+            data = data ? JSON.parse(data) : [];
+            data.push({ name, age, email });
+            localStorage.setItem('attData', JSON.stringify(data));
+        }
+    </script>
+</body>
+</html>
